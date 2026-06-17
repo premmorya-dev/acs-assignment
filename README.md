@@ -257,7 +257,7 @@ This Laravel API application supports two roles: **Admin** and **User**. Admin u
   }
   ```
 
-## CSV Format Example
+## CSV Format Example (customer.csv file)
 
 Expected CSV columns:
 
