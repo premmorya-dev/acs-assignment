@@ -19,18 +19,18 @@ This Laravel API application supports two roles: **Admin** and **User**. Admin u
 
 ## Folder Structure
 
-- `app/Http/Controllers` — API controllers for authentication, customers, notifications, and reports
-- `app/Http/Requests` — request validation classes for every API endpoint
-- `app/Http/Resources` — JSON resource classes for consistent response formatting
-- `app/Jobs` — queued jobs for notifications
-- `app/Mail` — Mailable class for payment reminder emails
-- `app/Models` — Eloquent models and relationships
-- `app/Services` — reusable services for CSV import, reporting, and WhatsApp integration
-- `database/migrations` — schema definitions for users, customers, communication logs, personal access tokens, and queues
-- `database/factories` — dummy data factories
-- `database/seeders` — seeded admin/user accounts and customers
-- `routes/api.php` — API routes
-- `routes/console.php` — artisan helper command definitions
+- `app/Http/Controllers` â€” API controllers for authentication, customers, notifications, and reports
+- `app/Http/Requests` â€” request validation classes for every API endpoint
+- `app/Http/Resources` â€” JSON resource classes for consistent response formatting
+- `app/Jobs` â€” queued jobs for notifications
+- `app/Mail` â€” Mailable class for payment reminder emails
+- `app/Models` â€” Eloquent models and relationships
+- `app/Services` â€” reusable services for CSV import, reporting, and WhatsApp integration
+- `database/migrations` â€” schema definitions for users, customers, communication logs, personal access tokens, and queues
+- `database/factories` â€” dummy data factories
+- `database/seeders` â€” seeded admin/user accounts and customers
+- `routes/api.php` â€” API routes
+- `routes/console.php` â€” artisan helper command definitions
 
 ## Setup Instructions
 
@@ -268,29 +268,22 @@ Expected CSV columns:
 
 ## Assumptions Made
 
-- WhatsApp notifications use a stubbed external API configured through `WHATSAPP_API_URL` and `WHATSAPP_API_TOKEN`.
+- WhatsApp notifications treated as dummy
 - Notifications are only sent for customers whose `payment_status` is `Pending`.
 - CSV upload skips duplicate customer emails and counts them separately.
 - Admin-only routes are protected with custom middleware.
 - Validation uses Form Requests and returns clean JSON for API clients.
 
-## Running Tests
-
-Run the full suite with:
-
-```bash
-php artisan test
-```
 
 ## Postman Collection
 
-The Postman collection is available as `postman_collection.json` and the environment file is `postman_environment.json`.
+The Postman collection is available as `postman_collection.json`
 
 ## Extra Commands
 
 - Seed the default admin user again:
   ```bash
-  php artisan seed:admin
+  php artisan db:seed
   ```
 
 ## Notes
