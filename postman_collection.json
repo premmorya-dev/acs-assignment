@@ -1,0 +1,215 @@
+{
+  "info": {
+    "name": "ACS Laravel API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for the ACS Laravel REST API. Use the environment file to configure base_url and token."
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/login",
+          "host": ["{{base_url}}"],
+          "path": ["api", "login"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  var jsonData = pm.response.json();",
+              "  pm.environment.set('token', jsonData.token);",
+              "  pm.environment.set('user_id', jsonData.user.id);",
+              "}",
+              "pm.test('Login succeeded', function () {",
+              "  pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/logout",
+          "host": ["{{base_url}}"],
+          "path": ["api", "logout"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Customer CSV",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/admin/upload-csv",
+          "host": ["{{base_url}}"],
+          "path": ["api", "admin", "upload-csv"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Customers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/customers?per_page=15",
+          "host": ["{{base_url}}"],
+          "path": ["api", "customers"],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "15"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Payment Status",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payment_status\": \"Paid\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/customer/{{customer_id}}/payment-status",
+          "host": ["{{base_url}}"],
+          "path": ["api", "customer", "{{customer_id}}", "payment-status"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"email\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/customer/{{customer_id}}/send-notification",
+          "host": ["{{base_url}}"],
+          "path": ["api", "customer", "{{customer_id}}", "send-notification"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reports Summary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/reports/summary",
+          "host": ["{{base_url}}"],
+          "path": ["api", "reports", "summary"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
